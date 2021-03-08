@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/nguyenquan263/Documents/Development/cs455-project/test/tests.cpp
+oatpp-test/UnitTest.hpp
+/Users/nguyenquan263/Documents/Development/cs455-project/test/oatpp-test/UnitTest.hpp
+iostream
+-
+
+/usr/local/include/oatpp-1.2.5/oatpp/oatpp-test/UnitTest.hpp
+functional
+-
+oatpp/core/base/Environment.hpp
+/usr/local/include/oatpp-1.2.5/oatpp/oatpp-test/oatpp/core/base/Environment.hpp
+
+/usr/local/include/oatpp-1.2.5/oatpp/oatpp/core/base/Config.hpp
+
+/usr/local/include/oatpp-1.2.5/oatpp/oatpp/core/base/Environment.hpp
+./Config.hpp
+/usr/local/include/oatpp-1.2.5/oatpp/oatpp/core/base/Config.hpp
+cstdio
+-
+atomic
+-
+mutex
+-
+string
+-
+unordered_map
+-
+memory
+-
+stdexcept
+-
+cstdlib
+-
+

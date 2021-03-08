@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="cs455"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\mongocxx-3.6.2\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\bsoncxx-3.6.2\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-1.2.5\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-swagger-1.2.5\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-mongo-1.2.5\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cs455">
+				<Option output="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/cs455" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DOATPP_SWAGGER_RES_PATH=&quot;/usr/local/include/oatpp-1.2.5/oatpp-swagger//../bin/oatpp-swagger/res&quot;"/>
+					<Add directory="/Users/nguyenquan263/Documents/Development/cs455-project/src"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-swagger"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-mongo"/>
+					<Add directory="/usr/local/include/mongocxx/v_noabi"/>
+					<Add directory="/usr/local/include/bsoncxx/v_noabi"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cs455"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cs455/fast">
+				<Option output="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/cs455" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DOATPP_SWAGGER_RES_PATH=&quot;/usr/local/include/oatpp-1.2.5/oatpp-swagger//../bin/oatpp-swagger/res&quot;"/>
+					<Add directory="/Users/nguyenquan263/Documents/Development/cs455-project/src"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-swagger"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-mongo"/>
+					<Add directory="/usr/local/include/mongocxx/v_noabi"/>
+					<Add directory="/usr/local/include/bsoncxx/v_noabi"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cs455/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test">
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cs455-test">
+				<Option output="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/cs455-test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DOATPP_SWAGGER_RES_PATH=&quot;/usr/local/include/oatpp-1.2.5/oatpp-swagger//../bin/oatpp-swagger/res&quot;"/>
+					<Add directory="/Users/nguyenquan263/Documents/Development/cs455-project/src"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-swagger"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-mongo"/>
+					<Add directory="/usr/local/include/mongocxx/v_noabi"/>
+					<Add directory="/usr/local/include/bsoncxx/v_noabi"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cs455-test"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cs455-test/fast">
+				<Option output="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/cs455-test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DOATPP_SWAGGER_RES_PATH=&quot;/usr/local/include/oatpp-1.2.5/oatpp-swagger//../bin/oatpp-swagger/res&quot;"/>
+					<Add directory="/Users/nguyenquan263/Documents/Development/cs455-project/src"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-swagger"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-mongo"/>
+					<Add directory="/usr/local/include/mongocxx/v_noabi"/>
+					<Add directory="/usr/local/include/bsoncxx/v_noabi"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cs455-test/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cs455-lib">
+				<Option output="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/libcs455-lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DOATPP_SWAGGER_RES_PATH=&quot;/usr/local/include/oatpp-1.2.5/oatpp-swagger//../bin/oatpp-swagger/res&quot;"/>
+					<Add directory="/Users/nguyenquan263/Documents/Development/cs455-project/src"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-swagger"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-mongo"/>
+					<Add directory="/usr/local/include/mongocxx/v_noabi"/>
+					<Add directory="/usr/local/include/bsoncxx/v_noabi"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cs455-lib"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cs455-lib/fast">
+				<Option output="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/libcs455-lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DOATPP_SWAGGER_RES_PATH=&quot;/usr/local/include/oatpp-1.2.5/oatpp-swagger//../bin/oatpp-swagger/res&quot;"/>
+					<Add directory="/Users/nguyenquan263/Documents/Development/cs455-project/src"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-swagger"/>
+					<Add directory="/usr/local/include/oatpp-1.2.5/oatpp-mongo"/>
+					<Add directory="/usr/local/include/mongocxx/v_noabi"/>
+					<Add directory="/usr/local/include/bsoncxx/v_noabi"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cs455-lib/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nguyenquan263/Documents/Development/cs455-project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/src/App.cpp">
+			<Option target="cs455"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/src/AppComponent.hpp">
+			<Option target="cs455-lib"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/src/SwaggerComponent.hpp">
+			<Option target="cs455-lib"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/src/controller/UserController.hpp">
+			<Option target="cs455-lib"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/src/dao/userDao/userDao.cpp">
+			<Option target="cs455-lib"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/src/dao/userDao/userDao.hpp">
+			<Option target="cs455-lib"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/src/dao/userDao/userModel.hpp">
+			<Option target="cs455-lib"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/src/dto/DTOs.hpp">
+			<Option target="cs455-lib"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/test/tests.cpp">
+			<Option target="cs455-test"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/mongocxx-3.6.2/mongocxx-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\mongocxx-3.6.2\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/mongocxx-3.6.2/mongocxx-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\mongocxx-3.6.2\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/mongocxx-3.6.2/mongocxx_targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\mongocxx-3.6.2\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/mongocxx-3.6.2/mongocxx_targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\mongocxx-3.6.2\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/bsoncxx-3.6.2/bsoncxx-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\bsoncxx-3.6.2\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/bsoncxx-3.6.2/bsoncxx-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\bsoncxx-3.6.2\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/bsoncxx-3.6.2/bsoncxx_targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\bsoncxx-3.6.2\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/bsoncxx-3.6.2/bsoncxx_targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\bsoncxx-3.6.2\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-1.2.5/oatppConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-1.2.5/oatppConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-1.2.5/oatppTargets-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-1.2.5/oatppTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-swagger-1.2.5/oatpp-swaggerConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-swagger-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-swagger-1.2.5/oatpp-swaggerConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-swagger-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-swagger-1.2.5/oatpp-swaggerTargets-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-swagger-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-swagger-1.2.5/oatpp-swaggerTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-swagger-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-mongo-1.2.5/oatpp-mongoConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-mongo-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-mongo-1.2.5/oatpp-mongoConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-mongo-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-mongo-1.2.5/oatpp-mongoTargets-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-mongo-1.2.5\"/>
+		</Unit>
+		<Unit filename="/Users/nguyenquan263/Documents/Development/cs455-project/../../../../../usr/local/lib/cmake/oatpp-mongo-1.2.5/oatpp-mongoTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\oatpp-mongo-1.2.5\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

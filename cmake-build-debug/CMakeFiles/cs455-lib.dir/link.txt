@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libcs455-lib.a  CMakeFiles/cs455-lib.dir/src/dao/userDao/userDao.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libcs455-lib.a

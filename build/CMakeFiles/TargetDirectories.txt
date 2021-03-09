@@ -1,6 +1,0 @@
-/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/edit_cache.dir
-/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/rebuild_cache.dir
-/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/cs455.dir
-/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/test.dir
-/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/cs455-test.dir
-/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/cs455-lib.dir

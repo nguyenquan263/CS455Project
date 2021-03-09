@@ -10,11 +10,11 @@ CMakeFiles/cs455.dir/src/App.cpp.o
  ../src/dto/loginRequestDTO.hpp
  ../src/dto/responseDTO.hpp
  ../src/dto/userDTO.hpp
- /Users/nguyenquan263/Documents/Development/cs455-project/src/App.cpp
- /Users/nguyenquan263/Documents/Development/cs455-project/src/AppComponent.hpp
- /Users/nguyenquan263/Documents/Development/cs455-project/src/SwaggerComponent.hpp
- /Users/nguyenquan263/Documents/Development/cs455-project/src/controller/CourseController.hpp
- /Users/nguyenquan263/Documents/Development/cs455-project/src/controller/UserController.hpp
+ /Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/src/App.cpp
+ /Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/src/AppComponent.hpp
+ /Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/src/SwaggerComponent.hpp
+ /Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/src/controller/CourseController.hpp
+ /Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/src/controller/UserController.hpp
  /usr/local/include/boost/algorithm/string/case_conv.hpp
  /usr/local/include/boost/algorithm/string/compare.hpp
  /usr/local/include/boost/algorithm/string/concept.hpp

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/nguyenquan263/Documents/Development/cs455-project/test/tests.cpp" "/Users/nguyenquan263/Documents/Development/cs455-project/build/CMakeFiles/cs455-test.dir/test/tests.cpp.o"
+  "/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/test/tests.cpp" "/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/cs455-test.dir/test/tests.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
@@ -27,7 +27,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/Users/nguyenquan263/Documents/Development/cs455-project/build/CMakeFiles/cs455-lib.dir/DependInfo.cmake"
+  "/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/cs455-lib.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

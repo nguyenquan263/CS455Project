@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/nguyenquan263/Documents/Development/cs455-project/src/dao/courseDao/courseDao.cpp" "/Users/nguyenquan263/Documents/Development/cs455-project/build/CMakeFiles/cs455-lib.dir/src/dao/courseDao/courseDao.cpp.o"
-  "/Users/nguyenquan263/Documents/Development/cs455-project/src/dao/userDao/userDao.cpp" "/Users/nguyenquan263/Documents/Development/cs455-project/build/CMakeFiles/cs455-lib.dir/src/dao/userDao/userDao.cpp.o"
+  "/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/src/dao/courseDao/courseDao.cpp" "/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/cs455-lib.dir/src/dao/courseDao/courseDao.cpp.o"
+  "/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/src/dao/userDao/userDao.cpp" "/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/build/CMakeFiles/cs455-lib.dir/src/dao/userDao/userDao.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

@@ -4,7 +4,7 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = -DBOOST_ALL_NO_LIB -DOATPP_SWAGGER_RES_PATH=\"/usr/local/include/oatpp-1.2.5/oatpp-swagger//../bin/oatpp-swagger/res\"
 
-CXX_INCLUDES = -I/Users/nguyenquan263/Documents/Development/cs455-project/src -isystem /usr/local/include/oatpp-1.2.5/oatpp -isystem /usr/local/include/oatpp-1.2.5/oatpp-swagger -isystem /usr/local/include/oatpp-1.2.5/oatpp-mongo -isystem /usr/local/include -isystem /usr/local/include/mongocxx/v_noabi -isystem /usr/local/include/bsoncxx/v_noabi
+CXX_INCLUDES = -I/Users/nguyenquan263/Documents/Development/CS455ProjectGit/CS455Project/src -isystem /usr/local/include/oatpp-1.2.5/oatpp -isystem /usr/local/include/oatpp-1.2.5/oatpp-swagger -isystem /usr/local/include/oatpp-1.2.5/oatpp-mongo -isystem /usr/local/include -isystem /usr/local/include/mongocxx/v_noabi -isystem /usr/local/include/bsoncxx/v_noabi
 
 CXX_FLAGS =  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -std=gnu++11
 

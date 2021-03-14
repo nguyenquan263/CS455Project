@@ -76,7 +76,7 @@ public:
 
     oatpp::String connectionString = std::getenv("DEMO_MONGO_CONN_STR");
     if(!connectionString){
-      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://quanthu.life");
+      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://qnguyen3:260396@quanthu.life");
       std::cout << "Connected to the database!" << std::endl;
     }
 
@@ -90,7 +90,7 @@ public:
 
     oatpp::String connectionString = std::getenv("DEMO_MONGO_CONN_STR");
     if(!connectionString){
-      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://quanthu.life");
+      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://qnguyen3:260396@quanthu.life");
       std::cout << "Connected to the database!" << std::endl;
     }
 

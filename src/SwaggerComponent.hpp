@@ -27,7 +27,6 @@ public:
     .setContactName("CS 455 Server Gods")
     .setContactUrl("https://oatpp.io/")
     
-    .addServer("http://10.205.233.170:8000", "server on remote machine")
     .addServer("http://localhost:8000", "server on localhost")
     .addServer("http://quanthu.life/cs455/", "server on the cloud");
     

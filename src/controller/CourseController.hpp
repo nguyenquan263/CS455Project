@@ -49,7 +49,7 @@ public:
     auto responseDTO = ResponseDTO::createShared();
     try {
       //check the user is existed or not
-      auto course = m_database->getCourse(courseDTO->code);
+      auto course = m_database->getCourseByCode(courseDTO->code);
 
       if (course) {
         // OATPP_LOGD("Server", "found!");
@@ -73,24 +73,24 @@ public:
 
   ENDPOINT_INFO(putCourse) {
     // general
-    info->summary = "Update Course by course's code";
+    info->summary = "Update Course by courseObjectID";
     info->addConsumes<Object<CourseDTO>>("application/json");
     info->addResponse<Object<CourseDTO>>(Status::CODE_200, "application/json");
     info->addResponse<String>(Status::CODE_404, "text/plain");
     // params specific
-    info->pathParams["code"].description = "target course's code";
+    info->pathParams["courseObjectID"].description = "target courseObjectID";
   }
-  ENDPOINT("PUT", "courses/{code}", putCourse,
-           PATH(String, code),
+  ENDPOINT("PUT", "courses/{courseObjectID}", putCourse,
+           PATH(String, courseObjectID),
            BODY_DTO(Object<CourseDTO>, courseDTO)) {
     auto responseDTO = ResponseDTO::createShared();
 
     try {
       //check the user is existed or not
-      auto course = m_database->getCourse(code);
+      auto course = m_database->getCourseByID(courseObjectID);
 
       if (course) {
-        courseDTO->code = code;
+        courseDTO->_id = courseObjectID;
         responseDTO->errorCode = 200;
         responseDTO->message = "The course is updated successfully.";
         responseDTO->data = m_database->updateCourse(courseDTO);
@@ -111,19 +111,19 @@ public:
 
   ENDPOINT_INFO(getCourse) {
     // general
-    info->summary = "Get the course by course's code";
+    info->summary = "Get the course by courseObjectID";
     info->addResponse<Object<CourseDTO>>(Status::CODE_200, "application/json");
     info->addResponse<Object<ResponseDTO>>(Status::CODE_404, "application/json");
     // params specific
-    info->pathParams["code"].description = "target course's code";
+    info->pathParams["courseObjectID"].description = "target courseObjectID";
   }
-  ENDPOINT("GET", "courses/{code}", getCourse,
-           PATH(String, code)) {
+  ENDPOINT("GET", "courses/{courseObjectID}", getCourse,
+           PATH(String, courseObjectID)) {
 
     auto responseDTO = ResponseDTO::createShared();
 
     try {
-      auto course = m_database->getCourse(code);
+      auto course = m_database->getCourseByID(courseObjectID);
       if (course) {
         responseDTO->errorCode = 200;
         responseDTO->message = "The target course is found.";
@@ -171,20 +171,20 @@ public:
 
   ENDPOINT_INFO(deleteCourse) {
     // general
-    info->summary = "Delete Course by course's code.";
+    info->summary = "Delete Course by courseObjectID.";
     info->addResponse<String>(Status::CODE_200, "application/json");
     // params specific
-    info->pathParams["code"].description = "target course's code";
+    info->pathParams["codeObjectID"].description = "target courseObjectID";
   }
-  ENDPOINT("DELETE", "courses/{code}", deleteCourse,
-           PATH(String, code)) {
+  ENDPOINT("DELETE", "courses/{courseObjectID}", deleteCourse,
+           PATH(String, courseObjectID)) {
     auto responseDTO = ResponseDTO::createShared();
 
     try {
-      bool success = m_database->deleteCourse(code);
+      bool success = m_database->deleteCourse(courseObjectID);
       if (success) {
         responseDTO->errorCode = 200;
-        responseDTO->message = "The course with code equal '" + code + "' is deleted successfully.";
+        responseDTO->message = "The course with code equal '" + courseObjectID + "' is deleted successfully.";
         responseDTO->data = NULL;
       } else {
         responseDTO->errorCode = 404;

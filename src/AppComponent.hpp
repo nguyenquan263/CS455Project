@@ -5,19 +5,13 @@
 #include "dao/userDao/userDao.hpp"
 #include "dao/courseDao/courseDao.hpp"
 #include "SwaggerComponent.hpp"
-
 #include "oatpp/web/server/HttpConnectionHandler.hpp"
 #include "oatpp/web/server/HttpRouter.hpp"
-
 #include "oatpp/network/tcp/server/ConnectionProvider.hpp"
-
 #include "oatpp/parser/json/mapping/ObjectMapper.hpp"
-
 #include "oatpp/core/base/CommandLineArguments.hpp"
 #include "oatpp/core/macro/component.hpp"
-
 #include <mongocxx/client.hpp>
-
 #include <iostream>
 
 /**
@@ -37,6 +31,8 @@ public:
    *  Swagger component
    */
   SwaggerComponent swaggerComponent;
+  
+  
   
   /**
    *  Create ConnectionProvider component which listens on the port
@@ -76,12 +72,12 @@ public:
 
     oatpp::String connectionString = std::getenv("DEMO_MONGO_CONN_STR");
     if(!connectionString){
-      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://qnguyen3:260396@quanthu.life");
+      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://admin:123abc@quanthu.life");
       std::cout << "Connected to the database!" << std::endl;
     }
 
     mongocxx::uri uri(connectionString->std_str());
-    return std::make_shared<dao::userDao>(uri, "cs455", "user");
+    return std::make_shared<dao::userDao>(uri, "CS455", "users");
 
   }());
 
@@ -90,12 +86,12 @@ public:
 
     oatpp::String connectionString = std::getenv("DEMO_MONGO_CONN_STR");
     if(!connectionString){
-      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://qnguyen3:260396@quanthu.life");
+      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://admin:123abc@quanthu.life");
       std::cout << "Connected to the database!" << std::endl;
     }
 
     mongocxx::uri uri(connectionString->std_str());
-    return std::make_shared<dao::courseDao>(uri, "cs455", "course");
+    return std::make_shared<dao::courseDao>(uri, "CS455", "courses");
 
   }());
 

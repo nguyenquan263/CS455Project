@@ -28,10 +28,10 @@ public:
 
   oatpp::Object<CourseDTO> createCourse(const oatpp::Object<CourseDTO> &courseDto);
   oatpp::Object<CourseDTO> updateCourse(const oatpp::Object<CourseDTO> &courseDto);
-  oatpp::Object<CourseDTO> getCourse(const oatpp::String& code);
+  oatpp::Object<CourseDTO> getCourseByID(const oatpp::String& courseObjectID);
+  oatpp::Object<CourseDTO> getCourseByCode(const oatpp::String& code);
   oatpp::List<oatpp::Object<CourseDTO>> getAllCourses();
-
-  bool deleteCourse(const oatpp::String& code);
+  bool deleteCourse(const oatpp::String& courseObjectID);
 
 };
 

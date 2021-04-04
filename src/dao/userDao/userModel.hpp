@@ -13,7 +13,7 @@ namespace dao {
 
 class User : public oatpp::DTO {
 
-  DTO_INIT(User, DTO)
+  DTO_INIT(User, DTO);
 
   DTO_FIELD(String, _id);
   DTO_FIELD(String, username);

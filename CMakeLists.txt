@@ -44,10 +44,13 @@ find_package(oatpp-swagger  1.2.5 REQUIRED)
 find_package(oatpp-mongo    1.2.5 REQUIRED)
 find_package(Boost          1.75.0 REQUIRED)
 
+link_directories(argon2)
+
 ## include directories
 
 target_include_directories(${project_name}-lib
         PUBLIC src
+	PUBLIC argon2/include
 )
 
 ## link libs
@@ -57,7 +60,7 @@ target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp-swagger
         PUBLIC oatpp::oatpp-mongo
         PUBLIC Boost::boost
-
+	argon2
 )
 
 if (TARGET mongo::mongocxx_shared)

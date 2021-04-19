@@ -4,6 +4,7 @@
 
 #include "dao/userDao/userDao.hpp"
 #include "dao/courseDao/courseDao.hpp"
+#include "dao/scheduleDao/scheduleDao.hpp"
 #include "SwaggerComponent.hpp"
 
 #include "oatpp/web/server/HttpConnectionHandler.hpp"
@@ -96,6 +97,19 @@ public:
 
     mongocxx::uri uri(connectionString->std_str());
     return std::make_shared<dao::courseDao>(uri, "cs455", "course");
+
+  }());
+
+  OATPP_CREATE_COMPONENT(std::shared_ptr<dao::scheduleDao>, scheduleDatabase)([this] {
+
+    oatpp::String connectionString = std::getenv("DEMO_MONGO_CONN_STR");
+    if(!connectionString){
+      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://qnguyen3:260396@quanthu.life");
+      std::cout << "Connected to the database!" << std::endl;
+    }
+
+    mongocxx::uri uri(connectionString->std_str());
+    return std::make_shared<dao::scheduleDao>(uri, "cs455", "schedule");
 
   }());
 

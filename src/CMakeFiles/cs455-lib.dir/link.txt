@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcs455-lib.a CMakeFiles/cs455-lib.dir/dao/userDao/userDao.cpp.o CMakeFiles/cs455-lib.dir/dao/courseDao/courseDao.cpp.o CMakeFiles/cs455-lib.dir/dao/scheduleDao/scheduleDao.cpp.o CMakeFiles/cs455-lib.dir/dao/appointmentDao/appointmentDao.cpp.o
+/usr/bin/ranlib libcs455-lib.a

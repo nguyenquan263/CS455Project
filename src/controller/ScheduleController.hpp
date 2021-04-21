@@ -40,11 +40,11 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
         
         ENDPOINT_INFO(createSchedule) {
             info->summary = "Create a new Schedule";
-            info->addConsumes<Object<ScehduleDTO>>("application/json");
+            info->addConsumes<Object<ScheduleDto>>("application/json");
             info->addResponse<Object<ResponseDTO>>(Status::CODE_200, "application/json");
         }
         ENDPOINT("POST", "/schedule", createSchedule,
-                 BODY_DTO(Object<ScheduleDTO>, scheduleDTO)) {
+                 BODY_DTO(Object<ScheduleDto>, scheduleDTO)) {
                      auto responseDTO = ResponseDTO::createShared();
                  try {
                      auto schedule = m_database->getScheduleByTutorId(scheduleDTO->tutor_id);
@@ -68,18 +68,18 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
 
         ENDPOINT_INFO(putSchedule) {
             info->summary = "Update Schedule by tutorID";
-            info->addConsumes<Object<ScheduleDTO>>("application/json");
-            info->addResponse<Object<ScheduleDTO>>(Status::CODE_200, "application/json");
+            info->addConsumes<Object<ScheduleDto>>("application/json");
+            info->addResponse<Object<ScheduleDto>>(Status::CODE_200, "application/json");
             info->addResponse<String>(Status::CODE_404, "text/plain");
             info->pathParams["tutor_id"].description = "target tutor_id";
         }
         ENDPOINT("PUT", "schedule/{tutor_id}", putSchedule,
                  PATH(String, tutor_id),
-                 BODY_DTO(Object<ScheduleDTO>, scheduleDTO)) {
+                 BODY_DTO(Object<ScheduleDto>, scheduleDTO)) {
                      auto responseDTO = ResponseDTO::createShared();
 
                      try {
-                        auto schedule = m_database->getScheduleByTutorId(tutorID);
+                        auto schedule = m_database->getScheduleByTutorId(tutor_id);
 
                         if (schedule) {
                             scheduleDTO->tutor_id = tutor_id;
@@ -94,7 +94,7 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
                      } catch(std::runtime_error &rte) {
                          responseDTO->errorCode = 500;
                          responseDTO->message = rte.what();
-                         repsonseDTO->data = NULL;
+                         responseDTO->data = NULL;
                      }
 
                      return createDtoResponse(Status::CODE_200, responseDTO);
@@ -102,7 +102,7 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
         
         ENDPOINT_INFO(getSchedule) {
             info->summary = "Get the schedule by tutor id";
-            info->addResponse<Object<ScheduleDTO>>(Status::CODE_200, "application/json");
+            info->addResponse<Object<ScheduleDto>>(Status::CODE_200, "application/json");
             info->addResponse<Object<ResponseDTO>>(Status::CODE_404, "application/json");
             
             info->pathParams["tutor_id"].description = "target tutor id";
@@ -116,16 +116,16 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
                          if(schedule) {
                              responseDTO->errorCode = 200;
                              responseDTO->message = "Target schedule found";
-                             reponseDTO->data = schedule;
+                             responseDTO->data = schedule;
                          } else {
                              responseDTO->errorCode = 404;
-                             repsonseDTO->message = "Cannot find target schedule";
+                             responseDTO->message = "Cannot find target schedule";
                              responseDTO->data = NULL;
                          }
                      } catch(std::runtime_error &rte) {
                          responseDTO->errorCode = 500;
                          responseDTO->message = rte.what();
-                         responseDTO->data = NULL:
+                         responseDTO->data = NULL;
                      }
 
                      return createDtoResponse(Status::CODE_200, responseDTO);
@@ -155,12 +155,12 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
 
     ENDPOINT_INFO(getScheduleByDate) {
             info->summary = "Get the schedule by date";
-            info->addResponse<Object<ScheduleDTO>>(Status::CODE_200, "application/json");
+            info->addResponse<Object<ScheduleDto>>(Status::CODE_200, "application/json");
             info->addResponse<Object<ResponseDTO>>(Status::CODE_404, "application/json");
             
             info->pathParams["date"].description = "target date";
         }
-    ENDPOINT("GET", "schedule/{date}", getSchedule,
+    ENDPOINT("GET", "schedule/{date}", getScheduleByDate,
              PATH(String, date)) {
                  auto responseDTO = ResponseDTO::createShared();
 
@@ -169,10 +169,10 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
                      if(schedule) {
                          responseDTO->errorCode = 200;
                          responseDTO->message = "Target schedule found";
-                         reponseDTO->data = schedule;
+                         responseDTO->data = schedule;
                      } else {
                          responseDTO->errorCode = 404;
-                         repsonseDTO->message = "Cannot find target schedule";
+                         responseDTO->message = "Cannot find target schedule";
                          responseDTO->data = NULL;
                      }
                  } catch(std::runtime_error &rte) {
@@ -189,8 +189,8 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
         info->addResponse<String>(Status::CODE_200, "application/json");
         info->pathParams["tutor_id"].description = "target schedule tutor_id";
     }
-    ENDPOINT("DELETE", "schedule/{date}", deleteSchedule,
-             PATH(String, date)) {
+    ENDPOINT("DELETE", "schedule/{tutor_id}", deleteSchedule,
+             PATH(String, tutor_id)) {
                  auto responseDTO = ResponseDTO::createShared();
 
                  try {
@@ -202,7 +202,7 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
                      } else {
                          responseDTO->errorCode = 404;
                          responseDTO->message = "Cannot find target schedule.";
-                         repsonseDTO->data = NULL;
+                         responseDTO->data = NULL;
                      }
                  } catch(std::runtime_error &rte) {
                      responseDTO->errorCode = 500;

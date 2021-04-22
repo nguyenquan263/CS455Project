@@ -11,6 +11,7 @@
 #include <iostream>
 
 
+
 void run(const oatpp::base::CommandLineArguments& args) {
 
   mongocxx::instance instance{};

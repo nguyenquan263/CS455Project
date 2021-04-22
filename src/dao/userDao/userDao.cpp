@@ -11,6 +11,7 @@
 
 #include <boost/algorithm/string.hpp>
 #include <string>
+#include "../../helper/encryption/encrypt.h"
 
 
 namespace dao {
@@ -36,7 +37,12 @@ oatpp::Object<User> userDao::userFromDto(const oatpp::Object<UserDto>& dto) {
   user->username = dto->username;
   user->email = dto->email;
   //create encrypted password
-  user->password = dto->password;
+  std::string userPassword = dto->password->std_str();
+  std::string testKey = "UNA";
+  std::string encryptedPass = encrypt(userPassword, testKey);
+  oatpp::String oatppEncryptedPassword = encryptedPass.c_str();
+  //-------------------------
+  user->password = oatppEncryptedPassword;
   user->phone = dto->phone;
   user->role = dto->role;
 
@@ -176,10 +182,18 @@ oatpp::Object<UserDto> userDao::login(const oatpp::String& username, const oatpp
   auto conn = m_pool->acquire();
   auto collection = (*conn)[m_databaseName][m_collectionName];
 
+  //encrypt the input password
+  std::string userPassword = password->std_str();
+  std::string testKey = "UNA";
+  std::string encryptedPass = encrypt(userPassword, testKey);
+  oatpp::String oatppEncryptedPassword = encryptedPass.c_str();
+  
+  //--------------------------
+
   auto result = collection.find_one(createMongoDocument(
       oatpp::Fields<oatpp::Any>({
         {"username", username},
-        {"password", password}
+        {"password", oatppEncryptedPassword}
       })
     ));
 
@@ -194,7 +208,7 @@ oatpp::Object<UserDto> userDao::login(const oatpp::String& username, const oatpp
       createMongoDocument( // <-- Filter
         oatpp::Fields<oatpp::Any>({
           {"username", username},
-          {"password", password}
+          {"password", oatppEncryptedPassword}
         })
       ),
       createMongoDocument( // <-- Set
@@ -214,7 +228,7 @@ oatpp::Object<UserDto> userDao::login(const oatpp::String& username, const oatpp
     auto updatedResult = collection.find_one(createMongoDocument(
       oatpp::Fields<oatpp::Any>({
         {"username", username},
-        {"password", password}
+        {"password", oatppEncryptedPassword}
       })
     ));
 

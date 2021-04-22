@@ -31,6 +31,7 @@ oatpp::Object<Course> courseDao::courseFromDto(const oatpp::Object<CourseDTO>& d
 
 oatpp::Object<CourseDTO> courseDao::dtoFromCourse(const oatpp::Object<Course>& course) {
   auto dto = CourseDTO::createShared();
+  dto->_id = course->_id;
   dto->code = course->code;
   dto->name = course->name;
   dto->isActive = course->isActive;
@@ -49,8 +50,11 @@ bsoncxx::document::value courseDao::createMongoDocument(const oatpp::Void &polym
 oatpp::Object<CourseDTO> courseDao::createCourse(const oatpp::Object<CourseDTO> &courseDTO) {
   auto conn = m_pool->acquire();
   auto collection = (*conn)[m_databaseName][m_collectionName];
-  collection.insert_one(createMongoDocument(courseFromDto(courseDTO)));
-  return courseDTO;
+
+  auto insertedCourse = courseFromDto(courseDTO);
+
+  collection.insert_one(createMongoDocument(insertedCourse));
+  return dtoFromCourse(insertedCourse);
 }
 
 oatpp::Object<CourseDTO> courseDao::updateCourse(const oatpp::Object<CourseDTO> &courseDTO) {
@@ -60,7 +64,7 @@ oatpp::Object<CourseDTO> courseDao::updateCourse(const oatpp::Object<CourseDTO> 
   collection.update_one(
     createMongoDocument( // <-- Filter
       oatpp::Fields<oatpp::String>({
-        {"code", courseDTO->code}
+        {"_id", courseDTO->_id}
       })
     ),
     createMongoDocument( // <-- Set
@@ -76,10 +80,46 @@ oatpp::Object<CourseDTO> courseDao::updateCourse(const oatpp::Object<CourseDTO> 
     )
   );
 
-  return courseDTO;
+  auto result =
+    collection.find_one(createMongoDocument( // <-- Filter
+      oatpp::Fields<oatpp::String>({
+        {"_id", courseDTO->_id}
+      })
+    ));
+
+  if(result) {
+    auto view = result->view();
+    auto bson = oatpp::String((const char*)view.data(), view.length(), false /* to not copy view data */);
+    auto course = m_objectMapper.readFromString<oatpp::Object<Course>>(bson);
+    return dtoFromCourse(course);
+  }
+
+  return nullptr;
+
 }
 
-oatpp::Object<CourseDTO> courseDao::getCourse(const oatpp::String& code) {
+oatpp::Object<CourseDTO> courseDao::getCourseByID(const oatpp::String& courseObjectID) {
+  auto conn = m_pool->acquire();
+  auto collection = (*conn)[m_databaseName][m_collectionName];
+
+  auto result =
+    collection.find_one(createMongoDocument( // <-- Filter
+      oatpp::Fields<oatpp::String>({
+        {"_id", courseObjectID}
+      })
+    ));
+
+  if(result) {
+    auto view = result->view();
+    auto bson = oatpp::String((const char*)view.data(), view.length(), false /* to not copy view data */);
+    auto course = m_objectMapper.readFromString<oatpp::Object<Course>>(bson);
+    return dtoFromCourse(course);
+  }
+
+  return nullptr;
+}
+
+oatpp::Object<CourseDTO> courseDao::getCourseByCode(const oatpp::String& code) {
   auto conn = m_pool->acquire();
   auto collection = (*conn)[m_databaseName][m_collectionName];
 
@@ -121,14 +161,14 @@ oatpp::List<oatpp::Object<CourseDTO>> courseDao::getAllCourses() {
 
 }
 
-bool courseDao::deleteCourse(const oatpp::String& code) {
+bool courseDao::deleteCourse(const oatpp::String& courseObjectID) {
   auto conn = m_pool->acquire();
   auto collection = (*conn)[m_databaseName][m_collectionName];
 
   auto result =
     collection.delete_one(createMongoDocument( // <-- Filter
       oatpp::Fields<oatpp::String>({
-        {"code", code}
+        {"_id", courseObjectID}
       })
     ));
 

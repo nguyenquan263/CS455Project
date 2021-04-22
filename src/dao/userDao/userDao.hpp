@@ -3,9 +3,7 @@
 
 #include "dto/userDTO.hpp"
 #include "userModel.hpp"
-
 #include "oatpp-mongo/bson/mapping/ObjectMapper.hpp"
-
 #include <mongocxx/pool.hpp>
 #include <bsoncxx/document/value.hpp>
 
@@ -28,11 +26,12 @@ public:
 
   oatpp::Object<UserDto> createUser(const oatpp::Object<UserDto> &userDto);
   oatpp::Object<UserDto> updateUser(const oatpp::Object<UserDto> &userDto);
-  oatpp::Object<UserDto> getUser(const oatpp::String& username);
+  oatpp::Object<UserDto> getUserByID(const oatpp::String& userObjectID);
+  oatpp::Object<UserDto> getUserByUsername(const oatpp::String& username);
   oatpp::List<oatpp::Object<UserDto>> getAllUsers();
+  oatpp::List<oatpp::Object<UserDto>> getAllUsersByRole(const oatpp::String& role);
   oatpp::Object<UserDto> login(const oatpp::String& username, const oatpp::String& password);
-
-  bool deleteUser(const oatpp::String& username);
+  bool deleteUser(const oatpp::String& userObjectID);
 
 };
 

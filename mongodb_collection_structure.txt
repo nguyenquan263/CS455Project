@@ -1,0 +1,45 @@
+
+
+//User Collection
+{
+  "_id": "string", //user MongoDB Object ID
+  "username": "string", // username, must has an index to make it unique
+  "email": "string", // email, must has an index to make it unique
+  "password": "string", //password, must be encrypted
+  "phone": "string", //phone number
+  "role": "string", // must be in [ADMIN, TUTOR, FACULTY, STUDENT]
+  "lastActivityDateTime": "string", //get from the server date-time, use posix_time of Boost Library
+  "isActive": boolean // use for disable a user.
+}
+
+
+//Course Collection
+{
+    "_id": "string", //course MongoDB Object ID
+    "code": "string", // course's code like CS155, CS255, CS355, must be unique
+    "name": "string", // course's name 
+    "isActive": boolean //use for disable a course
+}
+
+//Schedule Collection
+{
+    "_id": "string",
+    "tutor_id": "string", //ID of the tutor_id
+    "date": "string", //Date of Schedule
+    "from_time": "string", //Beginning time of the Schedule
+    "end_time": "string", //Ending time of the Schedule
+    "isActive": boolean //use for disable the Schedule
+}
+
+//Appointment Collection
+{
+    "_id": "string",
+    "tutor_id": "string", //ID of the tutor //1ST COND
+    "student_id": "string", //ID of the student //2ND COND
+    "course_id": "string, //ID of the course //3RD CON
+    "date": "string", //Date of Schedule   //NEED TO SATISFY THE SCHEDULE OF THE TUTOR //4TH COND
+    "from_time": "string", //Beginning time of the Schedule
+    "end_time": "string", //Ending time of the Schedule
+    "isCompleted": boolean, // for checking this appointment is completed or not
+    "isActive": boolean //use for disable the Schedule
+}

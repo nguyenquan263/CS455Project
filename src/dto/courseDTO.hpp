@@ -9,7 +9,8 @@
 
 class CourseDTO : public oatpp::DTO {
 	DTO_INIT(CourseDTO, DTO);
-
+    
+    DTO_FIELD(String, _id);
     DTO_FIELD(String, code);
     DTO_FIELD(String, name);
     DTO_FIELD(Boolean, isActive);

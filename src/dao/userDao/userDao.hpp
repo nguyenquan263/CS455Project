@@ -3,9 +3,7 @@
 
 #include "dto/userDTO.hpp"
 #include "userModel.hpp"
-
 #include "oatpp-mongo/bson/mapping/ObjectMapper.hpp"
-
 #include <mongocxx/pool.hpp>
 #include <bsoncxx/document/value.hpp>
 

@@ -4,6 +4,8 @@
 
 #include "dao/userDao/userDao.hpp"
 #include "dao/courseDao/courseDao.hpp"
+#include "dao/availableTimeDao/availableTimeDao.hpp"
+
 #include "SwaggerComponent.hpp"
 #include "oatpp/web/server/HttpConnectionHandler.hpp"
 #include "oatpp/web/server/HttpRouter.hpp"
@@ -73,7 +75,7 @@ public:
     oatpp::String connectionString = std::getenv("DEMO_MONGO_CONN_STR");
     if(!connectionString){
       connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://admin:123abc@quanthu.life");
-      std::cout << "Connected to the database!" << std::endl;
+      std::cout << "Connected to the User collection!" << std::endl;
     }
 
     mongocxx::uri uri(connectionString->std_str());
@@ -87,13 +89,29 @@ public:
     oatpp::String connectionString = std::getenv("DEMO_MONGO_CONN_STR");
     if(!connectionString){
       connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://admin:123abc@quanthu.life");
-      std::cout << "Connected to the database!" << std::endl;
+      std::cout << "Connected to the Course collection!" << std::endl;
     }
 
     mongocxx::uri uri(connectionString->std_str());
     return std::make_shared<dao::courseDao>(uri, "CS455", "courses");
 
   }());
+
+  // OATPP Component for managing AvailableTime Collection.
+  OATPP_CREATE_COMPONENT(std::shared_ptr<dao::availableTimeDao>, availableTimeDatabase)([this] {
+
+    oatpp::String connectionString = std::getenv("DEMO_MONGO_CONN_STR");
+    if(!connectionString){
+      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://admin:123abc@quanthu.life");
+      std::cout << "Connected to the Available Time database!" << std::endl;
+    }
+
+    mongocxx::uri uri(connectionString->std_str());
+    return std::make_shared<dao::availableTimeDao>(uri, "CS455", "available_times");
+
+  }());
+
+
 
 };
 

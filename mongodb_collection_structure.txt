@@ -1,3 +1,5 @@
+
+
 //User Collection
 {
   "_id": "string", //user MongoDB Object ID
@@ -19,7 +21,7 @@
     "isActive": boolean //use for disable a course
 }
 
-//Schedule Collection
+//Available Time Collection
 {
     "_id": "string",
     "tutor_id": "string", //ID of the tutor_id
@@ -32,10 +34,10 @@
 //Appointment Collection
 {
     "_id": "string",
-    "tutor_id": "string", //ID of the tutor
-    "student_id": "string", //ID of the student
-    "course_id": "string, //ID of the course
-    "date": "string", //Date of Schedule
+    "tutor_id": "string", //ID of the tutor //1ST COND
+    "student_id": "string", //ID of the student //2ND COND
+    "course_id": "string, //ID of the course //3RD CON
+    "date": "string", //Date of Schedule   //NEED TO SATISFY THE SCHEDULE OF THE TUTOR //4TH COND
     "from_time": "string", //Beginning time of the Schedule
     "end_time": "string", //Ending time of the Schedule
     "isCompleted": boolean, // for checking this appointment is completed or not

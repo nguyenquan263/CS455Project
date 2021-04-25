@@ -1,12 +1,15 @@
 #include "controller/UserController.hpp"
 #include "controller/CourseController.hpp"
+#include "controller/AvailableTimeController.hpp"
 #include "./AppComponent.hpp"
 #include "oatpp-swagger/Controller.hpp"
 #include "oatpp/network/Server.hpp"
 #include <mongocxx/instance.hpp>
 #include <iostream>
+#include <string>
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <iostream>
+
 
 
 void run(const oatpp::base::CommandLineArguments& args) {
@@ -25,9 +28,14 @@ void run(const oatpp::base::CommandLineArguments& args) {
 
   auto courseController = CourseController::createShared();
   courseController->addEndpointsToRouter(router);
+
+  auto availableTimeController = AvailableTimeController::createShared();
+  availableTimeController->addEndpointsToRouter(router);
   
   docEndpoints->pushBackAll(userController->getEndpoints());
   docEndpoints->pushBackAll(courseController->getEndpoints());
+  docEndpoints->pushBackAll(availableTimeController->getEndpoints());
+
   
   auto swaggerController = oatpp::swagger::Controller::createShared(docEndpoints);
   swaggerController->addEndpointsToRouter(router);
@@ -47,6 +55,17 @@ void run(const oatpp::base::CommandLineArguments& args) {
  *  main
  */
 int main(int argc, const char * argv[]) {
+
+
+  // std::string testPassword = "quannguyen";
+  // std::string testKey = "thisiskey";
+
+  // std::string encryptedPass = encrypt(testPassword, testKey);
+
+  // std::cout << encryptedPass << std::endl;
+  // std::cout << decrypt(encryptedPass, testKey) << std::endl;
+  
+
 
 
 

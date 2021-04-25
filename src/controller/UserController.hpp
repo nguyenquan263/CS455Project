@@ -48,7 +48,7 @@ public:
 
     try{
       responseDTO->errorCode = 200;
-      responseDTO->message = "Hi there, this is CS 455 Server Gods!";
+      responseDTO->message = "Hello World! This is Dr Jerkins";
       responseDTO->data = NULL;
     } catch(std::runtime_error &rte) {
       responseDTO->errorCode = 500;

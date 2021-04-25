@@ -11,24 +11,29 @@ add_library(${project_name}-lib
         src/dao/userDao/userDao.hpp
         src/dao/courseDao/courseDao.cpp
         src/dao/courseDao/courseDao.hpp
-        src/dao/scheduleDao/scheduleDao.cpp
-        src/dao/scheduleDao/scheduleDao.hpp
+        src/dao/availableTimeDao/availableTimeDao.cpp
+        src/dao/availableTimeDao/availableTimeDao.cpp
+       
 
         src/AppComponent.hpp
         src/SwaggerComponent.hpp
 
         src/controller/UserController.hpp
         src/controller/CourseController.hpp
+        src/controller/AvailableTimeController.hpp
 
         src/dto/userDTO.hpp
         src/dto/responseDTO.hpp
         src/dto/loginRequestDTO.hpp
         src/dto/courseDTO.hpp
-        src/dto/scheduleDTO.hpp
-
+        src/dto/availableTimeDTO.hpp
+        
         src/dao/userDao/userModel.hpp
         src/dao/courseDao/courseModel.hpp
-        src/dao/scheduleDao/scheduleModel.hpp
+        src/dao/availableTimeDao/availableTimeModel.hpp
+
+        src/helper/encryption/b64.h
+        src/helper/encryption/vigenere.h
 )
 
 ###################################################################
@@ -62,7 +67,7 @@ target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp-swagger
         PUBLIC oatpp::oatpp-mongo
         PUBLIC Boost::boost
-
+	
 )
 
 if (TARGET mongo::mongocxx_shared)

@@ -110,6 +110,19 @@ public:
 
   }());
 
+    OATPP_CREATE_COMPONENT(std::shared_ptr<dao::appointmentDao>, appointmentDatabase)([this] {
+
+    oatpp::String connectionString = std::getenv("DEMO_MONGO_CONN_STR");
+    if(!connectionString){
+      connectionString = m_cmdArgs.getNamedArgumentValue("--conn-str", "mongodb://admin:123abc@quanthu.life");
+      std::cout << "Connected to the database!" << std::endl;
+    }
+
+    mongocxx::uri uri(connectionString->std_str());
+    return std::make_shared<dao::appointmentDao>(uri, "CS455", "appointment");
+
+  }());
+
 };
 
 #endif /* example_oatpp_mongo_AppComponent_hpp */

@@ -1,6 +1,7 @@
 #include "controller/UserController.hpp"
 #include "controller/CourseController.hpp"
 #include "controller/ScheduleController.hpp"
+#include "controller/AppointmentController.hpp"
 #include "./AppComponent.hpp"
 #include "oatpp-swagger/Controller.hpp"
 #include "oatpp/network/Server.hpp"
@@ -31,10 +32,14 @@ void run(const oatpp::base::CommandLineArguments& args) {
 
   auto scheduleController = ScheduleController::createShared();
   scheduleController->addEndpointsToRouter(router);
+
+  auto appointmentController = AppointmentController::createShared();
+  appointmentController->addEndpointsToRouter(router);
   
   docEndpoints->pushBackAll(userController->getEndpoints());
   docEndpoints->pushBackAll(courseController->getEndpoints());
   docEndpoints->pushBackAll(scheduleController->getEndpoints());
+  docEndpoints->pushBackAll(appointmentController->getEndpoints());
   
   auto swaggerController = oatpp::swagger::Controller::createShared(docEndpoints);
   swaggerController->addEndpointsToRouter(router);

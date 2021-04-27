@@ -13,6 +13,8 @@ add_library(${project_name}-lib
         src/dao/courseDao/courseDao.hpp
         src/dao/scheduleDao/scheduleDao.cpp
         src/dao/scheduleDao/scheduleDao.hpp
+        src/dao/appointmentDao/appointmentDao.cpp
+        src/dao/appointmentDao/appointmentDao.hpp
 
         src/AppComponent.hpp
         src/SwaggerComponent.hpp
@@ -20,16 +22,19 @@ add_library(${project_name}-lib
         src/controller/UserController.hpp
         src/controller/CourseController.hpp
         src/controller/ScheduleController.hpp
+        src/controller/AppointmentController.hpp
 
         src/dto/userDTO.hpp
         src/dto/responseDTO.hpp
         src/dto/loginRequestDTO.hpp
         src/dto/courseDTO.hpp
         src/dto/scheduleDTO.hpp
+        src/dto/appointmentDTO.hpp
 
         src/dao/userDao/userModel.hpp
         src/dao/courseDao/courseModel.hpp
         src/dao/scheduleDao/scheduleModel.hpp
+        src/dao/appointmentDao/appointmentModel.hpp
 
         src/helper/encryption/b64.h
         src/helper/encryption/vigenere.h

@@ -57,11 +57,15 @@ find_package(oatpp          1.2.5 REQUIRED)
 find_package(oatpp-swagger  1.2.5 REQUIRED)
 find_package(oatpp-mongo    1.2.5 REQUIRED)
 find_package(Boost          1.75.0 REQUIRED)
+find_library(jwt-cpp        0.5    REQUIRED)
+
+link_directories(../jwt-cpp/build)
 
 ## include directories
 
 target_include_directories(${project_name}-lib
         PUBLIC src
+        PUBLIC ../jwt-cpp/include
 )
 
 ## link libs

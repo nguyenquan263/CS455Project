@@ -61,7 +61,7 @@ namespace dao {
         collection.update_one(
             createMongoDocument(
                 oatpp::Fields<oatpp::String>({
-                    {"tutor_id", scheduleDto->tutor_id}
+                    {"_id", scheduleDto->_id}
                 })
             ),
             createMongoDocument(
@@ -82,14 +82,14 @@ namespace dao {
         return scheduleDto;
     }
 
-    oatpp::Object<ScheduleDto> scheduleDao::getScheduleByTutorId(const oatpp::String& tutor_id) {
+    oatpp::Object<ScheduleDto> scheduleDao::getScheduleById(const oatpp::String& _id) {
         auto conn = m_pool->acquire();
         auto collection = (*conn)[m_databaseName][m_collectionName];
 
         auto result = 
         collection.find_one(
             createMongoDocument(oatpp::Fields<oatpp::String>({
-                {"tutor_id", tutor_id}
+                {"_id", _id}
             }))
         );
 
@@ -143,14 +143,14 @@ namespace dao {
         return list;
     }
 
-    bool scheduleDao::deleteSchedule(const oatpp::String& tutor_id) {
+    bool scheduleDao::deleteSchedule(const oatpp::String& _id) {
         auto conn = m_pool->acquire();
         auto collection = (*conn)[m_databaseName][m_collectionName];
 
         auto result = 
             collection.delete_one(createMongoDocument(
                 oatpp::Fields<oatpp::String>({
-                    {"tutor_id", tutor_id}
+                    {"_id", _id}
                 })
             ));
 

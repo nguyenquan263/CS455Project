@@ -10,6 +10,7 @@ class ScheduleDto : public oatpp::DTO {
 
     DTO_INIT(ScheduleDto, DTO)
 
+    DTO_FIELD(String, _id);
     DTO_FIELD(String, tutor_id);
     DTO_FIELD(String, date);
     DTO_FIELD(String, from_time);

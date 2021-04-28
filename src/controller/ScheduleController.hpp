@@ -47,7 +47,7 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
                  BODY_DTO(Object<ScheduleDto>, scheduleDTO)) {
                      auto responseDTO = ResponseDTO::createShared();
                  try {
-                     auto schedule = m_database->getScheduleByTutorId(scheduleDTO->tutor_id);
+                     auto schedule = m_database->getScheduleById(scheduleDTO->_id);
 
                      if(schedule) {
                          responseDTO->errorCode = 404;
@@ -67,22 +67,22 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
         }
 
         ENDPOINT_INFO(putSchedule) {
-            info->summary = "Update Schedule by tutorID";
+            info->summary = "Update Schedule by ID";
             info->addConsumes<Object<ScheduleDto>>("application/json");
             info->addResponse<Object<ScheduleDto>>(Status::CODE_200, "application/json");
             info->addResponse<String>(Status::CODE_404, "text/plain");
-            info->pathParams["tutor_id"].description = "target tutor_id";
+            info->pathParams["_id"].description = "target _id";
         }
-        ENDPOINT("PUT", "schedule/{tutor_id}", putSchedule,
-                 PATH(String, tutor_id),
+        ENDPOINT("PUT", "schedule/{_id}", putSchedule,
+                 PATH(String, _id),
                  BODY_DTO(Object<ScheduleDto>, scheduleDTO)) {
                      auto responseDTO = ResponseDTO::createShared();
 
                      try {
-                        auto schedule = m_database->getScheduleByTutorId(tutor_id);
+                        auto schedule = m_database->getScheduleById(_id);
 
                         if (schedule) {
-                            scheduleDTO->tutor_id = tutor_id;
+                            scheduleDTO->_id = _id;
                             responseDTO->errorCode = 200;
                             responseDTO->message = "The course was updated successfully.";
                             responseDTO->data = m_database->updateSchedule(scheduleDTO);
@@ -101,18 +101,18 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
                  }
         
         ENDPOINT_INFO(getSchedule) {
-            info->summary = "Get the schedule by tutor id";
+            info->summary = "Get the schedule by  id";
             info->addResponse<Object<ScheduleDto>>(Status::CODE_200, "application/json");
             info->addResponse<Object<ResponseDTO>>(Status::CODE_404, "application/json");
             
-            info->pathParams["tutor_id"].description = "target tutor id";
+            info->pathParams["_id"].description = "target  id";
         }
-        ENDPOINT("GET", "schedule/{tutor_id}", getSchedule,
-                 PATH(String, tutor_id)) {
+        ENDPOINT("GET", "schedule/{_id}", getSchedule,
+                 PATH(String, _id)) {
                      auto responseDTO = ResponseDTO::createShared();
 
                      try {
-                         auto schedule = m_database->getScheduleByTutorId(tutor_id);
+                         auto schedule = m_database->getScheduleById(_id);
                          if(schedule) {
                              responseDTO->errorCode = 200;
                              responseDTO->message = "Target schedule found";
@@ -185,19 +185,19 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
              }
 
     ENDPOINT_INFO(deleteSchedule) {
-        info->summary = "Delete Schedule by tutor ID";
+        info->summary = "Delete Schedule by ID";
         info->addResponse<String>(Status::CODE_200, "application/json");
-        info->pathParams["tutor_id"].description = "target schedule tutor_id";
+        info->pathParams["_id"].description = "target schedule _id";
     }
-    ENDPOINT("DELETE", "schedule/{tutor_id}", deleteSchedule,
-             PATH(String, tutor_id)) {
+    ENDPOINT("DELETE", "schedule/{_id}", deleteSchedule,
+             PATH(String, _id)) {
                  auto responseDTO = ResponseDTO::createShared();
 
                  try {
-                     bool success = m_database->deleteSchedule(tutor_id);
+                     bool success = m_database->deleteSchedule(_id);
                      if(success) {
                          responseDTO->errorCode = 200;
-                         responseDTO->message = "The schedule with tutor_id '" + tutor_id + "' was deleted successfully.";
+                         responseDTO->message = "The schedule with _id '" + _id + "' was deleted successfully.";
                          responseDTO->data = NULL;
                      } else {
                          responseDTO->errorCode = 404;

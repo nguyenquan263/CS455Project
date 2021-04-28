@@ -17,21 +17,23 @@
 //
 //      Lastly, this code depends on usage of the libcron library. I'm clueless when
 //      it comes to cmake, make, or really any kind of c++ compiling and linking, so
-//      I just included all source files so that the code would function. We can fix
-//      this at some point as well.
+//      I've just copied all of the dependent files into this emailer directory, and
+//      grabbed them with local includes. We can change this if need be, but I'm not
+//      sure it would be worth the effort.
 
 
 #include <iostream>
 #include <fstream>
 #include <thread>
+#include <vector>
 
-#include <libcron/Cron.h>
-#include <libcron/Task.h>
-#include <libcron/src/CronClock.cpp>
-#include <libcron/src/CronData.cpp>
-#include <libcron/src/CronRandomization.cpp>
-#include <libcron/src/CronSchedule.cpp>
-#include <libcron/src/Task.cpp>
+#include "libcron/Cron.h"
+#include "libcron/Task.h"
+#include "libcron/src/CronClock.cpp"
+#include "libcron/src/CronData.cpp"
+#include "libcron/src/CronRandomization.cpp"
+#include "libcron/src/CronSchedule.cpp"
+#include "libcron/src/Task.cpp"
 
 using namespace std;
 
@@ -48,8 +50,8 @@ class EmailScheduler
         string tempPath = "./temp.txt";
         string defaultReportContent = "See attachment for the requested report.";
 
-        bool oneTimeJob;
-        string whenToRun;
+        int recurringPeriod;
+        string cronTimeString;
         string emailDestination;
 
         string emailSubject;
@@ -69,10 +71,10 @@ class EmailScheduler
             string emailDestination = this->emailDestination;
             string tempPath = this->tempPath;
             string content = this->defaultReportContent;
-            bool oneTimeJob = this->oneTimeJob;
+            int recurringPeriod = this->recurringPeriod;
             bool taskComplete = false;
 
-            taskToRun = [emailSubject, reportFilePath, emailDestination, tempPath, content, oneTimeJob, &taskComplete]
+            taskToRun = [emailSubject, reportFilePath, emailDestination, tempPath, content, recurringPeriod, &taskComplete]
                         (auto& i) mutable
             {
                 // due to a limitation with mutt, we must write the content of the
@@ -90,7 +92,7 @@ class EmailScheduler
                 system(("echo \"" + command + "\" >> /home/micah/clientTest.txt").c_str());
 
                 // if task was a one time job, clear the cron schedule
-                if (oneTimeJob)
+                if (recurringPeriod == 0)
                 {
                     taskComplete = true;
                 }
@@ -99,7 +101,7 @@ class EmailScheduler
                 system(("rm " + tempPath).c_str());
             };
 
-            cron.add_schedule("Email Report", whenToRun, taskToRun);
+            cron.add_schedule("Email Report", cronTimeString, taskToRun);
 
             while (!taskComplete)
             {
@@ -120,6 +122,96 @@ class EmailScheduler
             taskThread.detach();
         }
 
+        // method that converts the given string, expected to be
+        // formatted like the output from to_simple_string(ptime t):
+        //
+        //                  2021-Apr-26 17:57:12
+        //
+        // and converts it to a valid cron time string
+        string ConvertToCronTime(string timeString)
+        {
+            // split the given string into tokens based on expected delimiters
+            vector<string> tokens;
+            auto cTimeString = timeString.c_str();
+
+            do
+            {
+                const char *begin = cTimeString;
+
+                while(*cTimeString != ' ' && *cTimeString != ':' && *cTimeString != '-' && *cTimeString)
+                {
+                    cTimeString++;
+                }
+
+                tokens.push_back(string(begin, cTimeString));
+            } while (0 != *cTimeString++);
+
+            // build the cron string based on these tokens
+            string dayAndStep;
+
+            if (recurringPeriod != 0)
+                dayAndStep = tokens.at(2) + "/" + to_string(recurringPeriod);
+            else   
+                dayAndStep = tokens.at(2);
+
+
+            string cronString = "* " +                                      // second
+                                tokens.at(4) + " " +                        // minute
+                                tokens.at(3) + " " +                        // hour
+                                dayAndStep + " " +                        // day of month
+                                AbrvToMonthNumber(tokens.at(1)) + " " +     // month
+                                "?";                                        // day of week
+
+            return cronString;
+        }
+
+        // helper function to convert month abreviation to number
+        string AbrvToMonthNumber(string abreviation)
+        {
+            string monthNumber;
+
+            if (abreviation == "Jan")
+                monthNumber = "1";
+            else if (abreviation == "Feb")
+                monthNumber = "2";
+            else if (abreviation == "Mar")
+                monthNumber = "3";
+            else if (abreviation == "Apr")
+                monthNumber = "4";
+            else if (abreviation == "May")
+                monthNumber = "5";
+            else if (abreviation == "Jun")
+                monthNumber = "6";
+            else if (abreviation == "Jul")
+                monthNumber = "7";
+            else if (abreviation == "Aug")
+                monthNumber = "8";
+            else if (abreviation == "Sep")
+                monthNumber = "9";
+            else if (abreviation == "Oct")
+                monthNumber = "10";
+            else if (abreviation == "Nov")
+                monthNumber = "11";
+            else
+                monthNumber = "12";
+
+            return monthNumber;
+        }
+
+        // helper function to make scheduling different reports more streamlined
+        void ScheduleReport(string emailDestination, string emailSubject, string emailContent, string reportFilePath, string whenToRun)
+        {
+            this->emailDestination = emailDestination;
+            this->emailSubject = emailSubject;
+            this->emailContent = emailContent;
+            this->reportFilePath = reportFilePath;
+
+            // convert time string to fit with cron job timing
+            this->cronTimeString = ConvertToCronTime(whenToRun);
+
+            RunEmailReport();
+        }
+
     public:
 
         // schedule a report to be sent one time
@@ -128,8 +220,12 @@ class EmailScheduler
         // string emailSubject - text for the subject line of the email
         // string emailContent - text to be inserted in the email body
         // string reportFilePath - file path to the report to be attached to this email
-        // string whenToRun - string to indicate when the job should be run in cron terms
+        // string whenToRun - string to indicate when the job should be run, expects the string
+        //                    is formatted like the output from to_simple_string(ptime t):
         //
+        //                                            2021-Apr-26 17:57:12
+        //
+        //Cron time string:
         //      -----------------  second (0 - 59)
         //      | ------------------  minute (0 - 59)
         //      | | ------------------  hour (0 - 23)
@@ -141,35 +237,44 @@ class EmailScheduler
         //
         void ScheduleOneTimeReport(string emailDestination, string emailSubject, string emailContent, string reportFilePath, string whenToRun)
         {
-            this->oneTimeJob = true;
-            this->emailDestination = emailDestination;
-            this->emailSubject = emailSubject;
-            this->emailContent = emailContent;
-            this->reportFilePath = reportFilePath;
-            this->whenToRun = whenToRun;
-
-            RunEmailReport();
+            this->recurringPeriod = 0;
+            ScheduleReport(emailDestination, emailSubject, emailContent, reportFilePath, whenToRun);
         }
 
-        // schedule a report to be sent, and then repeat
+        // schedule a report to be sent daily
         // 
         // string emailDestination - email address to send the email to
         // string emailSubject - text for the subject line of the email
         // string emailContent - text to be inserted in the email body
         // string reportFilePath - file path to the report to be attached to this email
-        // string whenToRun - string to indicate when the job should be run in cron terms
+        // string whenToRun - string to indicate when the job should be run, expects the string
+        //                    is formatted like the output from to_simple_string(ptime t):
         //
-        // **See function documentation for ScheduleOneTimeReport for whenToRun diagram
-        void ScheduleRecurringReport(string emailDestination, string emailSubject, string emailContent, string reportFilePath, string whenToRun)
+        //                                            2021-Apr-26 17:57:12
+        //
+        // **See function documentation for ScheduleOneTimeReport for cron time diagram
+        void ScheduleDailyReport(string emailDestination, string emailSubject, string emailContent, string reportFilePath, string whenToRun)
         {
-            this->oneTimeJob = false;
-            this->emailDestination = emailDestination;
-            this->emailSubject = emailSubject;
-            this->emailContent = emailContent;
-            this->reportFilePath = reportFilePath;
-            this->whenToRun = whenToRun;
+            this->recurringPeriod = 1;
+            ScheduleReport(emailDestination, emailSubject, emailContent, reportFilePath, whenToRun);
+        }
 
-            RunEmailReport();
+        // schedule a report to be sent weekly
+        // 
+        // string emailDestination - email address to send the email to
+        // string emailSubject - text for the subject line of the email
+        // string emailContent - text to be inserted in the email body
+        // string reportFilePath - file path to the report to be attached to this email
+        // string whenToRun - string to indicate when the job should be run, expects the string
+        //                    is formatted like the output from to_simple_string(ptime t):
+        //
+        //                                            2021-Apr-26 17:57:12
+        //
+        // **See function documentation for ScheduleOneTimeReport for cron time diagram
+        void ScheduleWeeklyReport(string emailDestination, string emailSubject, string emailContent, string reportFilePath, string whenToRun)
+        {
+            this->recurringPeriod = 7;
+            ScheduleReport(emailDestination, emailSubject, emailContent, reportFilePath, whenToRun);
         }
 
         // send an email to this destination right away

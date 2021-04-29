@@ -123,6 +123,26 @@ namespace dao {
 
         return list;
     }
+    oatpp::List<oatpp::Object<ScheduleDto>> scheduleDao::getScheduleByTutorId(const oatpp::String& tutorId){
+        auto conn = m_pool->acquire();
+        auto collection = (*conn)[m_databaseName][m_collectionName];
+
+        auto cursor = collection.find(
+            createMongoDocument(oatpp::Fields<oatpp::String>({
+                {"tutor_id", tutorId }
+            }))
+        );
+
+        oatpp::List<oatpp::Object<ScheduleDto>> list({});
+
+        for(auto view : cursor) {
+            auto bson = oatpp::String((const char*)view.data(), view.length(), false);
+            auto schedule = m_objectMapper.readFromString<oatpp::Object<Schedule>>(bson);
+            list->push_back(dtoFromSchedule(schedule));
+        }
+
+        return list;
+    }
 
     oatpp::List<oatpp::Object<ScheduleDto>> scheduleDao::getAllSchedules() {
         auto conn = m_pool->acquire();

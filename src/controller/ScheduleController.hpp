@@ -184,6 +184,38 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
                  return createDtoResponse(Status::CODE_200, responseDTO);
              }
 
+    ENDPOINT_INFO(getScheduleByTutorId) {
+            info->summary = "Get the schedule by Tutor ID";
+            info->addResponse<Object<ScheduleDto>>(Status::CODE_200, "application/json");
+            info->addResponse<Object<ResponseDTO>>(Status::CODE_404, "application/json");
+            
+            info->pathParams["tutor_id"].description = "target tutor_id";
+        }
+    ENDPOINT("GET", "schedule/{tutor_id}", getScheduleByTutorId,
+             PATH(String, tutor_id)) {
+                 auto responseDTO = ResponseDTO::createShared();
+
+                 try {
+                     auto schedule = m_database->getScheduleByTutorId(tutor_id);
+                     if(schedule) {
+                         responseDTO->errorCode = 200;
+                         responseDTO->message = "Target schedule found";
+                         responseDTO->data = schedule;
+                     } else {
+                         responseDTO->errorCode = 404;
+                         responseDTO->message = "Cannot find target schedule";
+                         responseDTO->data = NULL;
+                     }
+                 } catch(std::runtime_error &rte) {
+                     responseDTO->errorCode = 500;
+                     responseDTO->message = rte.what();
+                     responseDTO->data = NULL;
+                 }
+
+                 return createDtoResponse(Status::CODE_200, responseDTO);
+             }
+
+             
     ENDPOINT_INFO(deleteSchedule) {
         info->summary = "Delete Schedule by ID";
         info->addResponse<String>(Status::CODE_200, "application/json");

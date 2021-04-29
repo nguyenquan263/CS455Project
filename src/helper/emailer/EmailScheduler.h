@@ -6,26 +6,17 @@
 //  TODO: If we are going to be generating reports ourselves, then this class
 //        will need to accept arguments and include that code to allow it generate
 //        the reports at each scheduled time
-//  
-//  TODO: Adjust the CMakeLists for our program to know where to find
-//        curl headers on the target machine, as well as link it to curl libraries, and
-//        change support to standard for C++17
 //
 // ***NOTE
 //
-//      This class uses the Mailer class (from the same directory) to send mail,
-//      which depends on libcurl being installed to work. This is already installed
-//      on the cs.csis.work machine, so we only need to link it properly
+//      This class uses the libcurl and libcron libraries to schedule an email report
+//      to be sent. A user of this class need only instantiate it (no need for 
+//      constructor) and then call one of the reporting methods from that instance.
 //
-//      Once we have started setting up the code that needs to schedule regular 
-//      emails (like for sending reports), this class can be 
-//      instantiated from that code to get the job done in a few lines.
-//
-//      This code also depends on usage of the libcron library. I'm clueless when
-//      it comes to cmake, make, or really any kind of c++ compiling and linking, so
-//      I've just copied all of the dependent files into this emailer directory, and
-//      grabbed them with local includes, so no need to install on the target machine.
-//      We can change this if need be, but I'm not sure it would be worth the effort.
+//      Libcron doesn't require a linked library, so I've just copied all of the dependent files for libcron 
+//      into this emailer directory, and grabbed them with local includes, so no need 
+//      to check or install libcron on the target machine. We can change this if need
+//      be, but I'm not sure it would be worth the effort.
 //
 
 
@@ -49,8 +40,7 @@ using namespace std;
 // EmailScheduler class
 // 
 // This class handles scheduling emailing jobs, whether
-// they are one time reports, recurring reports, or just
-// instant emails
+// they are one time reports or recurring reports
 class EmailScheduler
 {
     using TaskFunction = function<void(const libcron::TaskInformation&)>;

@@ -1,31 +1,40 @@
 // Written by Micah Edmonds
 //
+//  TODO: May need to adjust functionality for accepting a start date 
+//        for a scheduling job as we determine how that will need to be done
+//
+//  TODO: If we are going to be generating reports ourselves, then this class
+//        will need to accept arguments and include that code to allow it generate
+//        the reports at each scheduled time
+//  
+//  TODO: Adjust the CMakeLists for our program to know where to find
+//        curl headers on the target machine, as well as link it to curl libraries, and
+//        change support to standard for C++17
+//
 // ***NOTE
 //
-//      Right now, this class is dependent on the machine it runs on to have the
-//      mail utility 'mutt' installed, as it calls it using the system() function.
-//      This class will need to be updated if we change how we approach mailing, or
-//      if Dr. Jerkins does not want to install mutt on the cs.csis.work server.
+//      This class uses the Mailer class (from the same directory) to send mail,
+//      which depends on libcurl being installed to work. This is already installed
+//      on the cs.csis.work machine, so we only need to link it properly
 //
-//      This class is also still in progress. I still need to make changes to allow the
-//      class to accept date information and convert it to the appropriate libcron
-//      time schedule.
-//
-//      Once we have started setting up the code that needs to send direct emails or
-//      schedule regular emails (like for sending reports), this class can be 
+//      Once we have started setting up the code that needs to schedule regular 
+//      emails (like for sending reports), this class can be 
 //      instantiated from that code to get the job done in a few lines.
 //
-//      Lastly, this code depends on usage of the libcron library. I'm clueless when
+//      This code also depends on usage of the libcron library. I'm clueless when
 //      it comes to cmake, make, or really any kind of c++ compiling and linking, so
 //      I've just copied all of the dependent files into this emailer directory, and
-//      grabbed them with local includes. We can change this if need be, but I'm not
-//      sure it would be worth the effort.
+//      grabbed them with local includes, so no need to install on the target machine.
+//      We can change this if need be, but I'm not sure it would be worth the effort.
+//
 
 
 #include <iostream>
 #include <fstream>
 #include <thread>
 #include <vector>
+
+#include "Mailer.h"
 
 #include "libcron/Cron.h"
 #include "libcron/Task.h"
@@ -47,15 +56,9 @@ class EmailScheduler
     using TaskFunction = function<void(const libcron::TaskInformation&)>;
 
     private:
-        string tempPath = "./temp.txt";
-        string defaultReportContent = "See attachment for the requested report.";
-
         int recurringPeriod;
         string cronTimeString;
         string emailDestination;
-
-        string emailSubject;
-        string emailContent;
         string reportFilePath;
 
         thread taskThread;
@@ -65,40 +68,23 @@ class EmailScheduler
         // can run without monitoring the job
         void ReportHelper(libcron::Cron<libcron::LocalClock, libcron::NullLock> cron)
         {  
-            // create the email command 
-            string emailSubject = this->emailSubject;
+            // create the email command
             string reportFilePath = this->reportFilePath;
             string emailDestination = this->emailDestination;
-            string tempPath = this->tempPath;
-            string content = this->defaultReportContent;
             int recurringPeriod = this->recurringPeriod;
             bool taskComplete = false;
 
-            taskToRun = [emailSubject, reportFilePath, emailDestination, tempPath, content, recurringPeriod, &taskComplete]
+            taskToRun = [reportFilePath, emailDestination, recurringPeriod, &taskComplete]
                         (auto& i) mutable
             {
-                // due to a limitation with mutt, we must write the content of the
-                // email to an output file
-                ofstream outfile;
-                outfile.open(tempPath);
-                outfile << content << endl;
-                outfile.close();
-
-                // add the file that contains content to the command
-                string command = "mutt -s \"" + emailSubject + "\" -a " + reportFilePath + " " + emailDestination + " < " + tempPath;
-
-                // make a system call using the mailing utility
-                //system(command.c_str());
-                system(("echo \"" + command + "\" >> /home/micah/clientTest.txt").c_str());
+                // send the email
+                Mailer mailer(emailDestination, reportFilePath);
 
                 // if task was a one time job, clear the cron schedule
                 if (recurringPeriod == 0)
                 {
                     taskComplete = true;
                 }
-
-                // get rid of the temp file
-                system(("rm " + tempPath).c_str());
             };
 
             cron.add_schedule("Email Report", cronTimeString, taskToRun);
@@ -146,7 +132,7 @@ class EmailScheduler
                 tokens.push_back(string(begin, cTimeString));
             } while (0 != *cTimeString++);
 
-            // build the cron string based on these tokens
+            // adjust the day value depending on if the job is recurring
             string dayAndStep;
 
             if (recurringPeriod != 0)
@@ -154,7 +140,7 @@ class EmailScheduler
             else   
                 dayAndStep = tokens.at(2);
 
-
+            // build the cron string based on these values
             string cronString = "* " +                                      // second
                                 tokens.at(4) + " " +                        // minute
                                 tokens.at(3) + " " +                        // hour
@@ -199,14 +185,11 @@ class EmailScheduler
         }
 
         // helper function to make scheduling different reports more streamlined
-        void ScheduleReport(string emailDestination, string emailSubject, string emailContent, string reportFilePath, string whenToRun)
+        void ScheduleReport(string emailDestination, string reportFilePath, string whenToRun)
         {
             this->emailDestination = emailDestination;
-            this->emailSubject = emailSubject;
-            this->emailContent = emailContent;
             this->reportFilePath = reportFilePath;
 
-            // convert time string to fit with cron job timing
             this->cronTimeString = ConvertToCronTime(whenToRun);
 
             RunEmailReport();
@@ -217,8 +200,6 @@ class EmailScheduler
         // schedule a report to be sent one time
         // 
         // string emailDestination - email address to send the email to
-        // string emailSubject - text for the subject line of the email
-        // string emailContent - text to be inserted in the email body
         // string reportFilePath - file path to the report to be attached to this email
         // string whenToRun - string to indicate when the job should be run, expects the string
         //                    is formatted like the output from to_simple_string(ptime t):
@@ -235,17 +216,15 @@ class EmailScheduler
         //      | | | | | |
         //      * * * * * *
         //
-        void ScheduleOneTimeReport(string emailDestination, string emailSubject, string emailContent, string reportFilePath, string whenToRun)
+        void ScheduleOneTimeReport(string emailDestination, string reportFilePath, string whenToRun)
         {
             this->recurringPeriod = 0;
-            ScheduleReport(emailDestination, emailSubject, emailContent, reportFilePath, whenToRun);
+            ScheduleReport(emailDestination, reportFilePath, whenToRun);
         }
 
         // schedule a report to be sent daily
         // 
         // string emailDestination - email address to send the email to
-        // string emailSubject - text for the subject line of the email
-        // string emailContent - text to be inserted in the email body
         // string reportFilePath - file path to the report to be attached to this email
         // string whenToRun - string to indicate when the job should be run, expects the string
         //                    is formatted like the output from to_simple_string(ptime t):
@@ -253,17 +232,15 @@ class EmailScheduler
         //                                            2021-Apr-26 17:57:12
         //
         // **See function documentation for ScheduleOneTimeReport for cron time diagram
-        void ScheduleDailyReport(string emailDestination, string emailSubject, string emailContent, string reportFilePath, string whenToRun)
+        void ScheduleDailyReport(string emailDestination, string reportFilePath, string whenToRun)
         {
             this->recurringPeriod = 1;
-            ScheduleReport(emailDestination, emailSubject, emailContent, reportFilePath, whenToRun);
+            ScheduleReport(emailDestination, reportFilePath, whenToRun);
         }
 
         // schedule a report to be sent weekly
         // 
         // string emailDestination - email address to send the email to
-        // string emailSubject - text for the subject line of the email
-        // string emailContent - text to be inserted in the email body
         // string reportFilePath - file path to the report to be attached to this email
         // string whenToRun - string to indicate when the job should be run, expects the string
         //                    is formatted like the output from to_simple_string(ptime t):
@@ -271,45 +248,9 @@ class EmailScheduler
         //                                            2021-Apr-26 17:57:12
         //
         // **See function documentation for ScheduleOneTimeReport for cron time diagram
-        void ScheduleWeeklyReport(string emailDestination, string emailSubject, string emailContent, string reportFilePath, string whenToRun)
+        void ScheduleWeeklyReport(string emailDestination, string reportFilePath, string whenToRun)
         {
             this->recurringPeriod = 7;
-            ScheduleReport(emailDestination, emailSubject, emailContent, reportFilePath, whenToRun);
-        }
-
-        // send an email to this destination right away
-        // 
-        // string emailDestination - email address to send the email to
-        // string emailSubject - text for the subject line of the email
-        // string emailContent - text to be inserted in the email body
-        // string attachmentFilePath (optional) - file path to an attachment
-        //
-        void SendEmail(string emailDestination, string emailSubject, string emailContent, string attachmentFilePath="")
-        {
-            // due to the limitations of mutt, we must write the content to a file
-            // and then include it in the email command
-            ofstream outfile;
-            outfile.open(tempPath);
-            outfile << emailContent;
-            outfile.close();
-
-            // build email command based on whether or not attachment was included
-            string command;
-            
-            if (attachmentFilePath=="")
-            {
-                command = "mutt -s \"" + emailSubject + "\" " + emailDestination + " < " + tempPath;
-            }
-            else
-            {
-                command = "mutt -s \"" + emailSubject + "\" -a " + attachmentFilePath + " " + emailDestination + " < " + tempPath;
-            }
-
-            // send the email
-            //system(command.c_str());
-            cout << command << endl;
-
-            // delete the email file
-            system(("rm " + tempPath).c_str());
+            ScheduleReport(emailDestination, reportFilePath, whenToRun);
         }
 };

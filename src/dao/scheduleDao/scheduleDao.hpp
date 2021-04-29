@@ -29,7 +29,7 @@ namespace dao {
             oatpp::Object<ScheduleDto> createSchedule(const oatpp::Object<ScheduleDto> &scheduleDto);
             oatpp::Object<ScheduleDto> updateSchedule(const oatpp::Object<ScheduleDto> &scheduleDto);
             oatpp::Object<ScheduleDto> getScheduleById(const oatpp::String& _id);
-            oatpp::List<oatpp::Object<ScheduleDto>> getScheduleByDate(const oatpp::String& date);
+            oatpp::List<oatpp::Object<ScheduleDto>> getScheduleByWeekday(const oatpp::String& weekday);
             oatpp::List<oatpp::Object<ScheduleDto>> getAllSchedules();
 
             bool deleteSchedule(const oatpp::String& _id);

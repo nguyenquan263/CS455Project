@@ -153,19 +153,19 @@ class ScheduleController : public oatpp::web::server::api::ApiController {
             return createDtoResponse(Status::CODE_200, responseDTO);
         }
 
-    ENDPOINT_INFO(getScheduleByDate) {
-            info->summary = "Get the schedule by date";
+    ENDPOINT_INFO(getScheduleByWeekday) {
+            info->summary = "Get the schedule by weekday";
             info->addResponse<Object<ScheduleDto>>(Status::CODE_200, "application/json");
             info->addResponse<Object<ResponseDTO>>(Status::CODE_404, "application/json");
             
-            info->pathParams["date"].description = "target date";
+            info->pathParams["weekday"].description = "target weekday";
         }
-    ENDPOINT("GET", "schedule/{date}", getScheduleByDate,
-             PATH(String, date)) {
+    ENDPOINT("GET", "schedule/{weekday}", getScheduleByWeekday,
+             PATH(String, weekday)) {
                  auto responseDTO = ResponseDTO::createShared();
 
                  try {
-                     auto schedule = m_database->getScheduleByDate(date);
+                     auto schedule = m_database->getScheduleByWeekday(weekday);
                      if(schedule) {
                          responseDTO->errorCode = 200;
                          responseDTO->message = "Target schedule found";

@@ -15,7 +15,7 @@ namespace dao {
 
         DTO_FIELD(String, _id);
         DTO_FIELD(String, tutor_id);
-        DTO_FIELD(String, date);
+        DTO_FIELD(String, weekday);
         DTO_FIELD(String, from_time);
         DTO_FIELD(String, end_time);
         DTO_FIELD(Boolean, isActive);

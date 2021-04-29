@@ -23,7 +23,7 @@ namespace dao {
         oatpp::mongo::bson::ObjectId objId = oatpp::mongo::bson::type::ObjectId();
         schedule->_id = objId->toString();
         schedule->tutor_id = dto->tutor_id;
-        schedule->date = dto->date;
+        schedule->weekday = dto->weekday;
         schedule->from_time = dto->from_time;
         schedule->end_time = dto->end_time;
         schedule->isActive = dto->isActive;
@@ -33,7 +33,7 @@ namespace dao {
     oatpp::Object<ScheduleDto> scheduleDao::dtoFromSchedule(const oatpp::Object<Schedule>& schedule) {
         auto dto = ScheduleDto::createShared();
         dto->tutor_id = schedule->tutor_id;
-        dto->date = schedule->date;
+        dto->weekday = schedule->weekday;
         dto->from_time = schedule->from_time;
         dto->end_time = schedule->end_time;
         dto->isActive = schedule->isActive;
@@ -69,7 +69,7 @@ namespace dao {
                     {
                         "$set", oatpp::Fields<oatpp::Any>({
                             {"tutor_id", scheduleDto->tutor_id},
-                            {"date", scheduleDto->date},
+                            {"weekday", scheduleDto->weekday},
                             {"from_time", scheduleDto->from_time},
                             {"end_time", scheduleDto->end_time},
                             {"isActive", scheduleDto->isActive}
@@ -103,13 +103,13 @@ namespace dao {
         return nullptr;
     }
 
-    oatpp::List<oatpp::Object<ScheduleDto>> scheduleDao::getScheduleByDate(const oatpp::String& date) {
+    oatpp::List<oatpp::Object<ScheduleDto>> scheduleDao::getScheduleByWeekday(const oatpp::String& weekday) {
         auto conn = m_pool->acquire();
         auto collection = (*conn)[m_databaseName][m_collectionName];
 
         auto cursor = collection.find(
             createMongoDocument(oatpp::Fields<oatpp::String>({
-                {"date", date}
+                {"weekday", weekday }
             }))
         );
 

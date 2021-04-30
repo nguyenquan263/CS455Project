@@ -4,7 +4,7 @@ set(project_name cs455)
 
 project(${project_name})
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 add_library(${project_name}-lib
         src/dao/userDao/userDao.cpp
@@ -57,6 +57,7 @@ find_package(oatpp          1.2.5 REQUIRED)
 find_package(oatpp-swagger  1.2.5 REQUIRED)
 find_package(oatpp-mongo    1.2.5 REQUIRED)
 find_package(Boost          1.75.0 REQUIRED)
+find_package(OpenSSL REQUIRED)
 
 ## include directories
 
@@ -71,6 +72,7 @@ target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp-swagger
         PUBLIC oatpp::oatpp-mongo
         PUBLIC Boost::boost
+        PUBLIC OpenSSL::SSL
 	
 )
 

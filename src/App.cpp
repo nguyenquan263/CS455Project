@@ -11,6 +11,7 @@
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <iostream>
 #include <jwt-cpp/jwt.h>
+#include "helper/emailer/Mailer.h"
 
 
 
@@ -110,6 +111,9 @@ int main(int argc, const char * argv[]) {
     .sign(jwt::algorithm::hs256{"secret"});
 
   std::cout << token << std::endl;
+
+  Mailer m("nguyenquan263@gmail.com", "CMakeLists.txt");
+  
 
 
 

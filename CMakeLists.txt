@@ -59,6 +59,12 @@ find_package(oatpp-mongo    1.2.5 REQUIRED)
 find_package(Boost          1.75.0 REQUIRED)
 find_package(OpenSSL REQUIRED)
 
+## add support for curl
+
+set(CURL_LIBRARY "-lcurl")
+find_package(CURL REQUIRED)
+include_directories(${CURL_INCLUDE_DIR})
+
 ## include directories
 
 target_include_directories(${project_name}-lib
@@ -73,6 +79,7 @@ target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp-mongo
         PUBLIC Boost::boost
         PUBLIC OpenSSL::SSL
+        ${CURL_LIBRARIES}
 	
 )
 
